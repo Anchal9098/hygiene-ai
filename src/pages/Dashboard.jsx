@@ -1,71 +1,67 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Navbar from "../components/Navbar";
 import ToiletCard from "../components/ToiletCard";
 import StatusBoard from "../components/StatusBoard";
 import MapView from "../components/MapView";
-import bgImg from "../assets/bg.png";
+import bgImg from "../assets/bg1.png";
+
 export default function Dashboard() {
 
-  // 🔎 search input
   const [searchText, setSearchText] = useState("");
-
-  // 🌐 language state
   const [lang, setLang] = useState("en");
 
-  // ⭐ translated texts
-  const [translatedTitle, setTranslatedTitle] = useState("Smart Hygiene AI");
-  const [translatedSearch, setTranslatedSearch] = useState("Search location...");
-
-  // 🤖 AI translate function
-  const translateText = async (text, lang) => {
-    console.log("Calling translate API with:", lang);
-
-    if (lang === "en") return text;
-
-    const res = await fetch("http://localhost:5000/translate", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ text, lang })
-    });
-
-    const data = await res.json();
-    return data.translation;
+  // ⭐ FULL LANGUAGE TEXT
+  const text = {
+    en: {
+      title: "Smart Hygiene AI",
+      search: "Search location...",
+      fresh: "Fresh",
+      needs: "Needs Cleaning",
+      metro: "Metro Station Toilet",
+      bus: "Bus Stand Toilet",
+      km: "km away",
+      rating: "Rating",
+    },
+    hi: {
+      title: "स्मार्ट हाइजीन एआई",
+      search: "स्थान खोजें...",
+      fresh: "स्वच्छ",
+      needs: "सफाई चाहिए",
+      metro: "मेट्रो स्टेशन शौचालय",
+      bus: "बस स्टैंड शौचालय",
+      km: "किमी दूर",
+      rating: "रेटिंग",
+    },
+    mr: {
+    title: "स्मार्ट हायजीन एआय",
+    search: "ठिकाण शोधा...",
+    fresh: "स्वच्छ",
+    needs: "स्वच्छता आवश्यक",
+    metro: "मेट्रो स्टेशन स्वच्छतागृह",
+    bus: "बस स्टँड स्वच्छतागृह",
+    km: "किमी अंतरावर",
+    rating: "रेटिंग",
+  }
   };
 
-  // ⭐ run translation when language changes
-  useEffect(() => {
-    const runTranslate = async () => {
-
-      const newTitle = await translateText("Smart Hygiene AI", lang);
-      const newSearch = await translateText("Search location...", lang);
-
-      setTranslatedTitle(newTitle);
-      setTranslatedSearch(newSearch);
-    };
-
-    runTranslate();
-  }, [lang]);
-
   return (
-   <div
-  className="min-h-screen bg-cover bg-center"
-  style={{ backgroundImage: `url(${bgImg})` }}
->
-
+    <div
+      className="min-h-screen bg-cover bg-center"
+      style={{ backgroundImage: `url(${bgImg})` }}
+    >
       {/* Navbar */}
       <Navbar lang={lang} setLang={setLang} />
 
-      {/* ⭐ Translated Title */}
+      {/* Title */}
       <div className="text-center text-2xl font-semibold mt-4">
-        <h1>{translatedTitle}</h1>
-        <p>{lang}</p>
+        <h1 className="text-black">{text[lang].title}</h1>
       </div>
 
-      {/* 🔎 Search Bar */}
+      {/* Search */}
       <div className="p-6 pb-0 flex justify-center">
         <input
           type="text"
-          placeholder={translatedSearch}
+          placeholder={text[lang].search}
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
           className="w-1/2 px-4 py-2 border rounded-xl shadow-sm outline-none"
@@ -80,17 +76,17 @@ export default function Dashboard() {
 
         <div className="flex flex-col gap-4">
           <ToiletCard
-            name="Metro Station Toilet"
-            distance="0.8"
-            rating="4.2"
-            status="Fresh"
+            name={text[lang].metro}
+            distance={`0.8 ${text[lang].km}`}
+            rating={`${text[lang].rating}: 4.2`}
+            status={text[lang].fresh}
           />
 
           <ToiletCard
-            name="Bus Stand Toilet"
-            distance="1.2"
-            rating="3.5"
-            status="Needs Cleaning"
+            name={text[lang].bus}
+            distance={`1.2 ${text[lang].km}`}
+            rating={`${text[lang].rating}: 3.5`}
+            status={text[lang].needs}
           />
         </div>
       </div>

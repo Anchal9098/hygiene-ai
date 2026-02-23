@@ -1,10 +1,13 @@
 export default function ToiletCard({ name, distance, rating, status }) {
   return (
-    <div className="bg-white shadow-md rounded-xl p-4 w-full">
+    <div className="bg-white rounded-xl shadow-md p-4">
       <h2 className="font-semibold text-lg">{name}</h2>
+
       <p>{distance} km away</p>
       <p>Rating: {rating}</p>
-      <p className="font-semibold">{status}</p>
+
+      {/* ⭐ THIS LINE MAKES HINDI WORK */}
+      <p className="font-medium">{status}</p>
     </div>
-  )
+  );
 }

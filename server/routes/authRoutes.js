@@ -10,7 +10,7 @@ const router = express.Router();
 const JWT_SECRET = "hackathon_secret";
 
 router.post("/send-otp", (req,res)=>{
-  const contact = req.body.contact.trim().toLowerCase(); // ⭐ add this
+  const contact = req.body.contact.trim().toLowerCase();
 
   const otp = Math.floor(100000 + Math.random()*900000);
   otpStore.set(contact, otp);
@@ -19,18 +19,26 @@ router.post("/send-otp", (req,res)=>{
   res.json({ message:"OTP sent" });
 });
 
-router.post("/verify-otp", async (req,res)=>{
-  const contact = req.body.contact.trim().toLowerCase(); // ⭐ same change
+router.post("/verify-otp", (req,res)=>{
+  const contact = req.body.contact.trim().toLowerCase();
   const { otp } = req.body;
 
-  console.log("Stored OTP:", otpStore.get(contact)); // debug
+  console.log("Stored OTP:", otpStore.get(contact));
   console.log("Entered OTP:", otp);
 
   if(Number(otpStore.get(contact)) !== Number(otp)){
     return res.status(400).json({ error:"Invalid OTP"});
   }
 
-  // rest same...
+  console.log("OTP verified ✅");
+
+  // ⭐ DIRECT TOKEN (NO DATABASE)
+  const token = jwt.sign({ contact }, JWT_SECRET);
+
+  res.json({
+    message: "OTP verified successfully",
+    token
+  });
 });
 
 export default router;

@@ -1,8 +1,12 @@
 export default function Navbar({ lang, setLang }) {
   return (
-    <div className="flex justify-between bg-green-700 text-white px-6 py-4">
+    <div className="flex justify-between 
+                bg-white/20 backdrop-blur-md 
+                text-white px-6 py-4 shadow-md">
 
-      <h2>Smart Hygiene AI</h2>
+      <h1 className="text-black font-semibold text-lg">
+  Smart Hygiene AI
+</h1>
       
 
 
