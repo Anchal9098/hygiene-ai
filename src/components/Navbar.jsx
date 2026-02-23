@@ -7,6 +7,11 @@ export default function Navbar() {
         <p>Nearby Toilets</p>
         <p>Status</p>
       </div>
+        <select onChange={(e)=>setLang(e.target.value)}>
+            <option value="en">English</option>
+            <option value="hi">हिंदी</option>
+            <option value="mr">मराठी</option>
+        </select>
     </div>
   )
 }
