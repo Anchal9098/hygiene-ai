@@ -3,7 +3,7 @@ import Navbar from "../components/Navbar";
 import ToiletCard from "../components/ToiletCard";
 import StatusBoard from "../components/StatusBoard";
 import MapView from "../components/MapView";
-
+import bgImg from "../assets/bg.png";
 export default function Dashboard() {
 
   // 🔎 search input
@@ -47,7 +47,10 @@ export default function Dashboard() {
   }, [lang]);
 
   return (
-    <div className="bg-gray-50 min-h-screen">
+   <div
+  className="min-h-screen bg-cover bg-center"
+  style={{ backgroundImage: `url(${bgImg})` }}
+>
 
       {/* Navbar */}
       <Navbar lang={lang} setLang={setLang} />
