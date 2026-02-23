@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
     "leaflet": "^1.9.4",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
@@ -28,5 +30,18 @@
     "postcss": "^8.5.6",
     "tailwindcss": "^4.2.0",
     "vite": "^7.3.1"
-  }
+  },
+  "description": "AI-driven system to monitor hygiene of public toilets and show live cleanliness grade while suggesting nearby alternatives.",
+  "main": "eslint.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Anchal9098/hygiene-ai.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Anchal9098/hygiene-ai/issues"
+  },
+  "homepage": "https://github.com/Anchal9098/hygiene-ai#readme"
 }

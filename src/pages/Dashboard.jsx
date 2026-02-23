@@ -12,11 +12,14 @@ export default function Dashboard() {
   // 🌐 language state
   const [lang, setLang] = useState("en");
 
-  // ⭐ translated title
+  // ⭐ translated texts
   const [translatedTitle, setTranslatedTitle] = useState("Smart Hygiene AI");
+  const [translatedSearch, setTranslatedSearch] = useState("Search location...");
 
   // 🤖 AI translate function
   const translateText = async (text, lang) => {
+    console.log("Calling translate API with:", lang);
+
     if (lang === "en") return text;
 
     const res = await fetch("http://localhost:5000/translate", {
@@ -32,8 +35,12 @@ export default function Dashboard() {
   // ⭐ run translation when language changes
   useEffect(() => {
     const runTranslate = async () => {
+
       const newTitle = await translateText("Smart Hygiene AI", lang);
+      const newSearch = await translateText("Search location...", lang);
+
       setTranslatedTitle(newTitle);
+      setTranslatedSearch(newSearch);
     };
 
     runTranslate();
@@ -42,19 +49,20 @@ export default function Dashboard() {
   return (
     <div className="bg-gray-50 min-h-screen">
 
-      {/* Navbar gets language control */}
+      {/* Navbar */}
       <Navbar lang={lang} setLang={setLang} />
 
       {/* ⭐ Translated Title */}
       <div className="text-center text-2xl font-semibold mt-4">
         <h1>{translatedTitle}</h1>
+        <p>{lang}</p>
       </div>
 
       {/* 🔎 Search Bar */}
       <div className="p-6 pb-0 flex justify-center">
         <input
           type="text"
-          placeholder="Search location (e.g. Nagpur Railway Station)"
+          placeholder={translatedSearch}
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
           className="w-1/2 px-4 py-2 border rounded-xl shadow-sm outline-none"
